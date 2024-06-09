@@ -1,3 +1,4 @@
+import { string } from "astro/zod";
 import { defineCollection, z } from "astro:content";
 
 const project = defineCollection({
@@ -6,7 +7,9 @@ const project = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    // Transform string to Date object
+    projectTimeframe: z.string().optional(),
+    client: z.array(z.string()).optional(),
+    topic: z.array(z.string()).optional(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     heroImage: z.string().optional(),
