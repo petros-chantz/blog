@@ -16,4 +16,19 @@ const work = defineCollection({
   }),
 });
 
-export const collections = { work };
+const project = defineCollection({
+  type: "content",
+  // Type-check frontmatter using a schema
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    projectTimeframe: z.string().optional(),
+    client: z.string().optional(),
+    topic: z.array(z.string()).optional(),
+    pubDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
+    heroImage: z.string().optional(),
+  }),
+});
+
+export const collections = { work, project };
