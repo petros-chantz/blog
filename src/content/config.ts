@@ -8,7 +8,7 @@ const project = defineCollection({
     title: z.string(),
     description: z.string(),
     projectTimeframe: z.string().optional(),
-    client: z.array(z.string()).optional(),
+    client: z.string().optional(),
     topic: z.array(z.string()).optional(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),

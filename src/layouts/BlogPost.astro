@@ -1,13 +1,22 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
+import Logo from "../components/Logo.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 
 type Props = CollectionEntry<"project">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const {
+  title,
+  description,
+  projectTimeframe,
+  client,
+  topic,
+  pubDate,
+  updatedDate,
+  heroImage,
+} = Astro.props;
 ---
 
 <html lang="en">
@@ -15,40 +24,38 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     <BaseHead title={title} description={description} />
   </head>
 
-  <body>
-    <main>
-      <h1>
-        Vendor Managment System: a project to revolutionise supplier
-        relationshops
-      </h1>
-
-      <article>
-        <div class="hero-image">
-          {
-            heroImage && (
-              <img width={1020} height={510} src={heroImage} alt="" />
-            )
-          }
-        </div>
-        <div class="prose">
-          <div class="title">
-            <div class="date">
-              <FormattedDate date={pubDate} />
-              {
-                updatedDate && (
-                  <div class="last-updated-on">
-                    Last updated on <FormattedDate date={updatedDate} />
-                  </div>
-                )
-              }
+  <body class="flex flex-col bg-white">
+    <Logo />
+    <main class="self-center w-1/2 pt-24 pb-48">
+      <article class="pb-16">
+        <div class="flex flex-col gap-6 w-full pb-16">
+          <h1 class="font-semibold">{title}</h1>
+          <h3 class="font-normal">{description}</h3>
+          <div class="flex flex-row justify-between pt-4">
+            <div class="flex flex-col gap-1">
+              <p class="font-medium text-sm">PROJECT TIME</p>
+              <p class="font-normal text-base">{projectTimeframe}</p>
             </div>
-            <h1>{title}</h1>
-            <hr />
+            <div class="flex flex-col gap-1">
+              <p class="font-medium text-sm">TOPICS</p>
+              <p class="font-normal text-base">{topic}</p>
+            </div>
+            <div class="flex flex-col gap-1">
+              <p class="font-medium text-sm">CLIENT</p>
+              <p class="font-normal text-base">{client}</p>
+            </div>
           </div>
-          <slot />
         </div>
+        <div class="border-t-2 border-slate-100 py-8"></div>
+        {
+          heroImage && (
+            <img width={1020} height={510} src={heroImage} alt="Project - " />
+          )
+        }
+        <hr />
       </article>
+
+      <slot />
     </main>
-    <Footer />
   </body>
 </html>
